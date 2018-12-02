@@ -3,10 +3,108 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:SetElite.Client"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:serviceClasses="clr-namespace:SetElite.Client.ServiceClasses"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d" Style="{StaticResource MainWindowStyle}"
+        Title="Настройки tst24 (Test T. User)">
+    <Window.Background>
+        <ImageBrush ImageSource="pack://application:,,,/SetElite.Client;component/Images/background.png"/>
+    </Window.Background>
     <Grid>
-        
+        <StackPanel Orientation="Vertical"
+                    DataContext="{Binding SettingsStorage}">
+            <TextBlock Text="SetElite Project" Margin="30,15,30,0" FontFamily="Ubuntu" FontSize="30" FontWeight="DemiBold" Foreground="AliceBlue"/>
+            <TextBlock Text="Client" Margin="30,0" TextAlignment="Right" FontFamily="Ubuntu" FontSize="30" Foreground="AliceBlue"/>
+
+            <Border BorderBrush="Aquamarine" BorderThickness="1" CornerRadius="12" Margin="10,10,10,0">
+                <Border.Background>
+                    <SolidColorBrush Opacity=".7" Color="Aquamarine"></SolidColorBrush>
+                </Border.Background>
+
+                <Expander DataContext="{Binding KeyboardLayout}"
+                      IsExpanded="{Binding IsEnabled}"
+                      Header="{Binding IsEnabled, ConverterParameter=Переключение языка, Converter={StaticResource ParameterNameStatusConverter}}">
+                    <Grid Margin="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+
+                        <RadioButton Content="Alt + Shift" 
+                                 HorizontalAlignment="Left" 
+                                 Height="14"
+                                 Grid.Column="0"
+                                 IsChecked="{Binding Value, ConverterParameter=AltShift, Converter={StaticResource EnumBooleanConverter}}"/>
+
+                        <RadioButton x:Name="ParamKeyLayCtrl"
+                                 Content="Ctrl + Shift" 
+                                 HorizontalAlignment="Left" 
+                                 Height="14"
+                                 Grid.Column="1"
+                                 IsChecked="{Binding Value, ConverterParameter=CtrlShift, Converter={StaticResource EnumBooleanConverter}}"/>
+                    </Grid>
+                </Expander>
+            </Border>
+
+            <Border BorderBrush="Aquamarine" BorderThickness="1" CornerRadius="12" Margin="10,10,10,0">
+                <Border.Background>
+                    <SolidColorBrush Opacity=".7" Color="Aquamarine"></SolidColorBrush>
+                </Border.Background>
+
+                <Expander
+                      DataContext="{Binding WallpaperImage}"
+                      IsExpanded="{Binding IsEnabled}"
+                      Header="{Binding IsEnabled, ConverterParameter=Фон рабочего стола, Converter={StaticResource ParameterNameStatusConverter}}">
+                    <StackPanel Margin="10,0,10,0">
+                        <DockPanel LastChildFill="True">
+                            <Button Command="{Binding OpenWallpaperCommand}"
+                                Content="Выбрать..." 
+                                DockPanel.Dock="Right" />
+                            <TextBox IsEnabled="False"
+                             Text="{Binding Filename}"
+                             Margin="0,0,5,0" />
+                        </DockPanel>
+
+                        <DockPanel>
+                            <Label Content="Стиль:" VerticalAlignment="Center" />
+                            <ComboBox ItemsSource="{Binding Source={serviceClasses:EnumBindingSource {x:Type serviceClasses:WallpaperStyle}}}"
+                                  SelectedItem="{Binding Style}" 
+                                  Margin="0,3,0,3" HorizontalContentAlignment="Stretch">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+                        </DockPanel>
+                    </StackPanel>
+                </Expander>
+            </Border>
+        </StackPanel>
+
+        <StackPanel Margin="10"
+              VerticalAlignment="Bottom">
+
+            <TextBlock Text="{Binding Status}" 
+                       Foreground="YellowGreen"
+                       FontSize="14"
+                       HorizontalAlignment="Center"
+                       Height="20">
+                <TextBlock.Effect>
+                    <DropShadowEffect
+                        ShadowDepth=".1"
+                        Direction="330"
+                        Color="Black"
+                        Opacity="0.5"
+                        BlurRadius="0.1"/>
+                </TextBlock.Effect>
+            </TextBlock>
+
+            <Border CornerRadius="12">
+                <Button 
+                Command="{Binding SaveCommand}"
+                Content="Сохранить" Height="50" />
+            </Border>
+        </StackPanel>
     </Grid>
 </Window>
