@@ -3,9 +3,7 @@ using MyToolkit.Command;
 using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
-using MyToolkit.Mvvm;
 using System.DirectoryServices.AccountManagement;
-using System.DirectoryServices;
 
 namespace SetElite.Client
 {
@@ -24,6 +22,7 @@ namespace SetElite.Client
             InitializeComponent();
 
             SaveCommand = new RelayCommand(UploadSettings);
+            HelpCommand = new RelayCommand(ShowHelp);
             SettingsStorage = new SettingsStorageEntity();
 
             SetWindowPosition();
@@ -34,10 +33,10 @@ namespace SetElite.Client
 
             this.DataContext = this;
         }
-
-
+        
         public SettingsStorageEntity SettingsStorage { get; set; }
         public RelayCommand SaveCommand { get; }
+        public RelayCommand HelpCommand { get; }
 
         private void SetWindowPosition()
         {
@@ -82,6 +81,14 @@ namespace SetElite.Client
             File.WriteAllText(_settingsFilepath.AbsolutePath, json);
 
             SettingsStorage.ApplyAll();
+        }
+
+        private void ShowHelp()
+        {
+            System.Windows.MessageBox.Show("Проект SetElite обеспечивает синхронизацию настроек между компьютерами. Чтобы включить синхронизацию параметра, нужно его раскрыть и задать нужное значение.Например, чтобы переключение языка ввода на Alt + Shift, нужно раскрыть соответствующий пункт настроек и выбрать \"Alt+Shift\", после чего нажать \"Сохранить\".Настройки применятся на остальных компьютерах при входе под Вашей учетной записью.Чтобы принудительно применить новые настройки на компьютере, нажмите правую кнопку мыши на значке SetElite Client в трее и выберите пункт \"Синхронизировать\".",
+                "Справка",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
         }
     }
 }

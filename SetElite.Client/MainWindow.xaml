@@ -4,15 +4,26 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:serviceClasses="clr-namespace:SetElite.Client.ServiceClasses"
-        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d" Style="{StaticResource MainWindowStyle}"
         Title="Настройки tst24 (Test T. User)">
     <Window.Background>
         <ImageBrush ImageSource="pack://application:,,,/SetElite.Client;component/Images/background.png"/>
     </Window.Background>
     <Grid>
-        <StackPanel Orientation="Vertical"
-                    DataContext="{Binding SettingsStorage}">
+        <Button x:Name="HelpCheckbox" 
+                    Command="{Binding HelpCommand}"
+                    Height="32"
+                    Margin="10"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Right">
+            <Button.Template>
+                <ControlTemplate>
+                    <Image Source="{StaticResource HelpIcon}" />
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        
+        <StackPanel DataContext="{Binding SettingsStorage}" Orientation="Vertical">
             <TextBlock Text="SetElite Project" Margin="30,15,30,0" FontFamily="Ubuntu" FontSize="30" FontWeight="DemiBold" Foreground="AliceBlue"/>
             <TextBlock Text="Client" Margin="30,0" TextAlignment="Right" FontFamily="Ubuntu" FontSize="30" Foreground="AliceBlue"/>
 
