@@ -11,6 +11,9 @@ using MyToolkit.Utilities;
 
 namespace SetElite.Client.ParameterEntities
 {
+    /// <summary>
+    /// Модель настроек фона рабочего стола.
+    /// </summary>
     public sealed class WallpaperImageParameterModel : VirtualParameterModel
     {
         private const string defaultFilename = "<Не выбрано>";
@@ -23,6 +26,9 @@ namespace SetElite.Client.ParameterEntities
 
         private Uri _wallpaperPath => new Uri(new Uri(MainWindow.UserdataDirectoryPath), Filename);
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public WallpaperImageParameterModel()
         {
             IsEnabled = false;
@@ -31,15 +37,22 @@ namespace SetElite.Client.ParameterEntities
             Style = WallpaperStyle.Stretched;
         }
 
+        /// <summary>
+        /// Команда выбора файла.
+        /// </summary>
         public RelayCommand OpenWallpaperCommand => new RelayCommand(OpenWallpaper);
-        public RelayCommand ResetCommand => new RelayCommand(Reset);
 
+        /// <summary>
+        /// Название файла фона рабочего стола.
+        /// </summary>
         public string Filename
         {
             get => _filename;
             set => Set(ref _filename, value);
         }
-
+        /// <summary>
+        /// Стиль фона рабочего стола.
+        /// </summary>
         public WallpaperStyle Style
         {
             get => _wallpaperStyle;
@@ -47,6 +60,9 @@ namespace SetElite.Client.ParameterEntities
         }
 
 
+        /// <summary>
+        /// Применить параметр.
+        /// </summary>
         public override void Apply()
         {
             if (!IsEnabled)
@@ -59,6 +75,17 @@ namespace SetElite.Client.ParameterEntities
                 ? @"C:\Windows\Web\4K\Wallpaper\Windows\img0_3840x2160.jpg" 
                 : _wallpaperPath.AbsolutePath;
             wallpaperChanger.Set(path, Style);
+        }
+
+        /// <summary>
+        /// Сбросить значение параметра.
+        /// </summary>
+        public override void Reset()
+        {
+            Filename = defaultFilename;
+            Style = WallpaperStyle.Stretched;
+
+            Apply();
         }
 
 
@@ -75,14 +102,6 @@ namespace SetElite.Client.ParameterEntities
             var filepath = openFileDialog.FileName;
             Filename = new FileInfo(filepath).Name;
             File.Copy(filepath, _wallpaperPath.AbsolutePath);
-        }
-
-        public override void Reset()
-        {
-            Filename = defaultFilename;
-            Style = WallpaperStyle.Stretched;
-
-            Apply();
         }
     }
 }

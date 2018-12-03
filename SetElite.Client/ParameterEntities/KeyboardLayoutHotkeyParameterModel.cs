@@ -12,6 +12,9 @@ namespace SetElite.Client.ParameterEntities
         [JsonProperty(PropertyName = "Value")]
         private KeyboardLayouts _value;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public KeyboardLayoutHotkeyParameterModel()
         {
             IsEnabled = true;
@@ -19,15 +22,18 @@ namespace SetElite.Client.ParameterEntities
         }
 
 
-        public RelayCommand ResetCommand => new RelayCommand(Reset);
-
-
+        /// <summary>
+        /// Значение параметра.
+        /// </summary>
         public KeyboardLayouts Value
         {
             get => _value;
             set => Set(ref _value, value);
         }
 
+        /// <summary>
+        /// Применить параметр.
+        /// </summary>
         public override void Apply()
         {
             if (!IsEnabled)
@@ -44,6 +50,9 @@ namespace SetElite.Client.ParameterEntities
             keyboardToggleSettings?.SetValue("Layout Hotkey", 3, RegistryValueKind.String);
         }
 
+        /// <summary>
+        /// Сбросить значение параметра.
+        /// </summary>
         public override void Reset()
         {
             Value = KeyboardLayouts.CtrlShift;

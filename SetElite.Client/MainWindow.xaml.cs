@@ -7,13 +7,22 @@ using System.DirectoryServices.AccountManagement;
 
 namespace SetElite.Client
 {
+    /// <summary>
+    /// Модель основного окна приложения.
+    /// </summary>
     public partial class MainWindow : Window
     {
+        /// <summary>
+        /// Путь к папке настроек пользователя.
+        /// </summary>
         public const string UserdataDirectoryPath = @"U:\SetElite\";
 
         private readonly Uri _userdataDirectory;
         private readonly Uri _settingsFilepath;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public MainWindow()
         {
             _userdataDirectory = new Uri(UserdataDirectoryPath);
@@ -23,7 +32,7 @@ namespace SetElite.Client
 
             SaveCommand = new RelayCommand(UploadSettings);
             HelpCommand = new RelayCommand(ShowHelp);
-            SettingsStorage = new SettingsStorageEntity();
+            SettingsStorage = new SettingsStorageModel();
 
             SetWindowPosition();
             UpdateWindowTitle();
@@ -34,9 +43,31 @@ namespace SetElite.Client
             this.DataContext = this;
         }
         
-        public SettingsStorageEntity SettingsStorage { get; set; }
+
+        /// <summary>
+        /// Хранилище настроек.
+        /// </summary>
+        public SettingsStorageModel SettingsStorage { get; set; }
+        /// <summary>
+        /// Команда сохранения настроек.
+        /// </summary>
         public RelayCommand SaveCommand { get; }
+        /// <summary>
+        /// Комманда вызова справки.
+        /// </summary>
         public RelayCommand HelpCommand { get; }
+
+
+        /// <summary>
+        /// Вызвать всплывающее окно со справкой.
+        /// </summary>
+        public void ShowHelp()
+        {
+            System.Windows.MessageBox.Show("Проект SetElite обеспечивает синхронизацию настроек между компьютерами. Чтобы включить синхронизацию параметра, нужно его раскрыть и задать нужное значение.Например, чтобы переключение языка ввода на Alt + Shift, нужно раскрыть соответствующий пункт настроек и выбрать \"Alt+Shift\", после чего нажать \"Сохранить\".Настройки применятся на остальных компьютерах при входе под Вашей учетной записью.Чтобы принудительно применить новые настройки на компьютере, нажмите правую кнопку мыши на значке SetElite Client в трее и выберите пункт \"Синхронизировать\".",
+                "Справка",
+                MessageBoxButton.OK,
+                MessageBoxImage.Information);
+        }
 
         private void SetWindowPosition()
         {
@@ -61,7 +92,7 @@ namespace SetElite.Client
             try
             {
                 var json = File.ReadAllText(_settingsFilepath.AbsolutePath);
-                var model = JsonConvert.DeserializeObject<SettingsStorageEntity>(json);
+                var model = JsonConvert.DeserializeObject<SettingsStorageModel>(json);
                 SettingsStorage = model;
             }
             catch
@@ -81,14 +112,6 @@ namespace SetElite.Client
             File.WriteAllText(_settingsFilepath.AbsolutePath, json);
 
             SettingsStorage.ApplyAll();
-        }
-
-        private void ShowHelp()
-        {
-            System.Windows.MessageBox.Show("Проект SetElite обеспечивает синхронизацию настроек между компьютерами. Чтобы включить синхронизацию параметра, нужно его раскрыть и задать нужное значение.Например, чтобы переключение языка ввода на Alt + Shift, нужно раскрыть соответствующий пункт настроек и выбрать \"Alt+Shift\", после чего нажать \"Сохранить\".Настройки применятся на остальных компьютерах при входе под Вашей учетной записью.Чтобы принудительно применить новые настройки на компьютере, нажмите правую кнопку мыши на значке SetElite Client в трее и выберите пункт \"Синхронизировать\".",
-                "Справка",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
         }
     }
 }

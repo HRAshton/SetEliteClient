@@ -4,14 +4,29 @@ using MyToolkit.Command;
 
 namespace SetElite.Client
 {
+    /// <summary>
+    /// Модель иконки приложения в трее.
+    /// </summary>
     public partial class NotifyIcon : Window
     {
+        /// <summary>
+        /// Команда открытия основного окна.
+        /// </summary>
         public RelayCommand OpenSettingsCommand => new RelayCommand(OpenSettings);
+        /// <summary>
+        /// Команда синхронизации настроек.
+        /// </summary>
         public RelayCommand SyncNowCommand => new RelayCommand(SyncNow);
+        /// <summary>
+        /// Команда закрытия приложения.
+        /// </summary>
         public RelayCommand CloseCommand => new RelayCommand(() => Environment.Exit(0));
 
-        MainWindow _mainWindow;
+        private MainWindow _mainWindow;
 
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
         public NotifyIcon()
         {
             InitializeComponent();

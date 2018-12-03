@@ -3,18 +3,32 @@ using SetElite.Client.ParameterEntities;
 
 namespace SetElite.Client
 {
-    public class SettingsStorageEntity
+    /// <summary>
+    /// Хранилище настроек.
+    /// </summary>
+    public class SettingsStorageModel
     {
-        public SettingsStorageEntity()
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        public SettingsStorageModel()
         {
             KeyboardLayout = new KeyboardLayoutHotkeyParameterModel();
             WallpaperImage = new WallpaperImageParameterModel();
         }
 
+        /// <summary>
+        /// Настройки языка ввода.
+        /// </summary>
         public KeyboardLayoutHotkeyParameterModel KeyboardLayout { get; set; }
-
+        /// <summary>
+        /// Настройки фона рабочего стола.
+        /// </summary>
         public WallpaperImageParameterModel WallpaperImage { get; set; }
 
+        /// <summary>
+        /// Применить все параметры.
+        /// </summary>
         public void ApplyAll()
         {
             KeyboardLayout.Apply();
