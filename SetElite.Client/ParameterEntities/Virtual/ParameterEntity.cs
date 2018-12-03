@@ -16,5 +16,7 @@ namespace SetElite.Client.ParameterEntities.Virtual
         }
 
         public abstract void Apply();
+
+        public abstract void Reset();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Win32;
+using MyToolkit.Command;
 using Newtonsoft.Json;
 using SetElite.Client.ParameterEntities.Virtual;
 using SetElite.Client.ServiceClasses;
@@ -16,6 +17,10 @@ namespace SetElite.Client.ParameterEntities
             IsEnabled = true;
             Value = KeyboardLayouts.AltShift;
         }
+
+
+        public RelayCommand ResetCommand => new RelayCommand(Reset);
+
 
         public KeyboardLayouts Value
         {
@@ -37,6 +42,13 @@ namespace SetElite.Client.ParameterEntities
             keyboardToggleSettings?.SetValue("Hotkey", value, RegistryValueKind.String);
             keyboardToggleSettings?.SetValue("Language Hotkey", value, RegistryValueKind.String);
             keyboardToggleSettings?.SetValue("Layout Hotkey", 3, RegistryValueKind.String);
+        }
+
+        public override void Reset()
+        {
+            Value = KeyboardLayouts.CtrlShift;
+
+            Apply();
         }
     }
 }

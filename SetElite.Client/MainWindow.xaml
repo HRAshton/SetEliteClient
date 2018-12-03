@@ -16,34 +16,62 @@
             <TextBlock Text="SetElite Project" Margin="30,15,30,0" FontFamily="Ubuntu" FontSize="30" FontWeight="DemiBold" Foreground="AliceBlue"/>
             <TextBlock Text="Client" Margin="30,0" TextAlignment="Right" FontFamily="Ubuntu" FontSize="30" Foreground="AliceBlue"/>
 
-            <Border BorderBrush="Aquamarine" BorderThickness="1" CornerRadius="12" Margin="10,10,10,0">
+            <Border BorderBrush="Aquamarine" 
+                    BorderThickness="1" 
+                    CornerRadius="12" 
+                    Margin="10,10,10,0">
                 <Border.Background>
                     <SolidColorBrush Opacity=".7" Color="Aquamarine"></SolidColorBrush>
                 </Border.Background>
 
-                <Expander DataContext="{Binding KeyboardLayout}"
-                      IsExpanded="{Binding IsEnabled}"
+                <Grid DataContext="{Binding KeyboardLayout}">
+                    <Expander IsExpanded="{Binding IsEnabled}"
                       Header="{Binding IsEnabled, ConverterParameter=Переключение языка, Converter={StaticResource ParameterNameStatusConverter}}">
-                    <Grid Margin="10">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                        </Grid.ColumnDefinitions>
+                        <Grid Margin="10">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
 
-                        <RadioButton Content="Alt + Shift" 
+                            <RadioButton Content="Alt + Shift" 
                                  HorizontalAlignment="Left" 
                                  Height="14"
                                  Grid.Column="0"
                                  IsChecked="{Binding Value, ConverterParameter=AltShift, Converter={StaticResource EnumBooleanConverter}}"/>
 
-                        <RadioButton x:Name="ParamKeyLayCtrl"
+                            <RadioButton x:Name="ParamKeyLayCtrl"
                                  Content="Ctrl + Shift" 
                                  HorizontalAlignment="Left" 
                                  Height="14"
                                  Grid.Column="1"
                                  IsChecked="{Binding Value, ConverterParameter=CtrlShift, Converter={StaticResource EnumBooleanConverter}}"/>
-                    </Grid>
-                </Expander>
+                        </Grid>
+                    </Expander>
+
+                    <Button Height="17"
+                            Command="{Binding ResetCommand}"
+                            Margin="0,2,3,3"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image Source="{StaticResource ResetIcon}" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="DemiBold">
+                                        Вернуть всё как было
+                                    </TextBlock>
+                                    <TextBlock>
+                                        Возвращает исходные настройки ТПУ.
+                                    </TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                </Grid>
             </Border>
 
             <Border BorderBrush="Aquamarine" BorderThickness="1" CornerRadius="12" Margin="10,10,10,0">
@@ -51,34 +79,59 @@
                     <SolidColorBrush Opacity=".7" Color="Aquamarine"></SolidColorBrush>
                 </Border.Background>
 
-                <Expander
-                      DataContext="{Binding WallpaperImage}"
+                <Grid DataContext="{Binding WallpaperImage}">
+                    <Expander
                       IsExpanded="{Binding IsEnabled}"
                       Header="{Binding IsEnabled, ConverterParameter=Фон рабочего стола, Converter={StaticResource ParameterNameStatusConverter}}">
-                    <StackPanel Margin="10,0,10,0">
-                        <DockPanel LastChildFill="True">
-                            <Button Command="{Binding OpenWallpaperCommand}"
+                        <StackPanel Margin="10,0,10,0">
+                            <DockPanel LastChildFill="True">
+                                <Button Command="{Binding OpenWallpaperCommand}"
                                 Content="Выбрать..." 
                                 DockPanel.Dock="Right" />
-                            <TextBox IsEnabled="False"
+                                <TextBox IsEnabled="False"
                              Text="{Binding Filename}"
                              Margin="0,0,5,0" />
-                        </DockPanel>
+                            </DockPanel>
 
-                        <DockPanel>
-                            <Label Content="Стиль:" VerticalAlignment="Center" />
-                            <ComboBox ItemsSource="{Binding Source={serviceClasses:EnumBindingSource {x:Type serviceClasses:WallpaperStyle}}}"
+                            <DockPanel>
+                                <Label Content="Стиль:" VerticalAlignment="Center" />
+                                <ComboBox ItemsSource="{Binding Source={serviceClasses:EnumBindingSource {x:Type serviceClasses:WallpaperStyle}}}"
                                   SelectedItem="{Binding Style}" 
                                   Margin="0,3,0,3" HorizontalContentAlignment="Stretch">
-                                <ComboBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
-                                    </DataTemplate>
-                                </ComboBox.ItemTemplate>
-                            </ComboBox>
-                        </DockPanel>
-                    </StackPanel>
-                </Expander>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Converter={StaticResource EnumDescriptionConverter}}"/>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
+                            </DockPanel>
+                        </StackPanel>
+                    </Expander>
+
+                    <Button Height="17"
+                            Command="{Binding ResetCommand}"
+                            Margin="0,2,3,3"
+                            VerticalAlignment="Top"
+                            HorizontalAlignment="Right">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Image Source="{StaticResource ResetIcon}" />
+                            </ControlTemplate>
+                        </Button.Template>
+                        <Button.ToolTip>
+                            <ToolTip>
+                                <StackPanel>
+                                    <TextBlock FontWeight="DemiBold">
+                                        Вернуть всё как было
+                                    </TextBlock>
+                                    <TextBlock>
+                                        Возвращает исходные настройки ТПУ.
+                                    </TextBlock>
+                                </StackPanel>
+                            </ToolTip>
+                        </Button.ToolTip>
+                    </Button>
+                </Grid>
             </Border>
         </StackPanel>
 

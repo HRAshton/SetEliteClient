@@ -1,16 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MyToolkit.Command;
 
 namespace SetElite.Client
@@ -27,17 +16,18 @@ namespace SetElite.Client
         {
             InitializeComponent();
             this.DataContext = this;
+            SyncNow();
         }
 
         private void OpenSettings()
         {
-            if (_mainWindow != null)
+            if (_mainWindow?.IsVisible != true)
             {
-                return;
+                _mainWindow = new MainWindow();
+                _mainWindow.ShowDialog();
             }
 
-            _mainWindow = new MainWindow();
-            _mainWindow.ShowDialog();
+            _mainWindow.Close();
         }
 
         private void SyncNow()

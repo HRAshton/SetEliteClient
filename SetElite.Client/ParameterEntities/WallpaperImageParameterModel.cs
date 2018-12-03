@@ -13,25 +13,26 @@ namespace SetElite.Client.ParameterEntities
 {
     public sealed class WallpaperImageParameterModel : VirtualParameterModel
     {
+        private const string defaultFilename = "<Не выбрано>";
+
         [JsonProperty(PropertyName = "Filename")]
         private string _filename;
 
         [JsonProperty(PropertyName = "WallpaperStyle")]
         private WallpaperStyle _wallpaperStyle;
 
+        private Uri _wallpaperPath => new Uri(new Uri(MainWindow.UserdataDirectoryPath), Filename);
+
         public WallpaperImageParameterModel()
         {
             IsEnabled = false;
             
-            Filename = "<Не выбрано>";
+            Filename = defaultFilename;
             Style = WallpaperStyle.Stretched;
-            
-            _wallpaperPath = new Uri(new Uri(MainWindow.UserdataDirectoryPath), "wallpaper.bmp");
         }
 
         public RelayCommand OpenWallpaperCommand => new RelayCommand(OpenWallpaper);
-
-        private readonly Uri _wallpaperPath;
+        public RelayCommand ResetCommand => new RelayCommand(Reset);
 
         public string Filename
         {
@@ -52,11 +53,12 @@ namespace SetElite.Client.ParameterEntities
             {
                 return;
             }
-            
-            var tempBitmapFilename = _wallpaperPath;
 
             var wallpaperChanger = new WallpaperChanger();
-            wallpaperChanger.Set(tempBitmapFilename.AbsolutePath, Style);
+            var path = Filename == defaultFilename 
+                ? @"C:\Windows\Web\4K\Wallpaper\Windows\img0_3840x2160.jpg" 
+                : _wallpaperPath.AbsolutePath;
+            wallpaperChanger.Set(path, Style);
         }
 
 
@@ -70,18 +72,17 @@ namespace SetElite.Client.ParameterEntities
 
             if (openFileDialog.ShowDialog() != true) return;
 
-            var filename = openFileDialog.FileName;
+            var filepath = openFileDialog.FileName;
+            Filename = new FileInfo(filepath).Name;
+            File.Copy(filepath, _wallpaperPath.AbsolutePath);
+        }
 
-            using (var stream1 = new WebClient().OpenRead(filename))
-            {
-                using (var stream2 = new FileStream(_wallpaperPath.AbsolutePath, FileMode.Create))
-                {
-                    var img = Image.FromStream(stream1);
-                    img.Save(stream2, System.Drawing.Imaging.ImageFormat.Bmp);
-                }
-            }
+        public override void Reset()
+        {
+            Filename = defaultFilename;
+            Style = WallpaperStyle.Stretched;
 
-            Filename = new FileInfo(filename).Name;
+            Apply();
         }
     }
 }

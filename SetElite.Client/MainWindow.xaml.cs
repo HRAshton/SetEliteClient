@@ -4,12 +4,14 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Windows;
 using MyToolkit.Mvvm;
+using System.DirectoryServices.AccountManagement;
+using System.DirectoryServices;
 
 namespace SetElite.Client
 {
     public partial class MainWindow : Window
     {
-        public const string UserdataDirectoryPath = @"C:\Users\Some\Desktop\";
+        public const string UserdataDirectoryPath = @"U:\SetElite\";
 
         private readonly Uri _userdataDirectory;
         private readonly Uri _settingsFilepath;
@@ -23,7 +25,7 @@ namespace SetElite.Client
 
             SaveCommand = new RelayCommand(UploadSettings);
             SettingsStorage = new SettingsStorageEntity();
-            
+
             SetWindowPosition();
             UpdateWindowTitle();
             DownloadSettings();
@@ -46,10 +48,13 @@ namespace SetElite.Client
 
         private void UpdateWindowTitle()
         {
-            var username = "kss20";
-            var fullname = "Kirill S. Suntsov";
+            using (var context = new PrincipalContext(ContextType.Domain, "main.tpu.ru"))
+            {
+                var username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+                var user = UserPrincipal.FindByIdentity(context, username);
 
-            this.Title = $"Настройки {username} ({fullname})";
+                this.Title = $"Настройки {user.Name} ({user.DisplayName})";
+            }
         }
 
         private void DownloadSettings()
@@ -69,6 +74,11 @@ namespace SetElite.Client
         private void UploadSettings()
         {
             var json = JsonConvert.SerializeObject(SettingsStorage);
+
+            if (!Directory.Exists(UserdataDirectoryPath))
+            {
+                Directory.CreateDirectory(UserdataDirectoryPath);
+            }
             File.WriteAllText(_settingsFilepath.AbsolutePath, json);
 
             SettingsStorage.ApplyAll();
