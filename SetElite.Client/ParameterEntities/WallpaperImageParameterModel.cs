@@ -16,7 +16,7 @@ namespace SetElite.Client.ParameterEntities
     /// </summary>
     public sealed class WallpaperImageParameterModel : VirtualParameterModel
     {
-        private const string defaultFilename = "<Не выбрано>";
+        private const string DefaultFilename = "<Не выбрано>";
 
         [JsonProperty(PropertyName = "Filename")]
         private string _filename;
@@ -24,7 +24,7 @@ namespace SetElite.Client.ParameterEntities
         [JsonProperty(PropertyName = "WallpaperStyle")]
         private WallpaperStyle _wallpaperStyle;
 
-        private Uri _wallpaperPath => new Uri(new Uri(MainWindow.UserdataDirectoryPath), Filename);
+        private Uri WallpaperPath => new Uri(new Uri(MainWindow.UserdataDirectoryPath), Filename);
 
         /// <summary>
         /// Конструктор.
@@ -33,7 +33,7 @@ namespace SetElite.Client.ParameterEntities
         {
             IsEnabled = false;
             
-            Filename = defaultFilename;
+            Filename = DefaultFilename;
             Style = WallpaperStyle.Stretched;
         }
 
@@ -60,6 +60,7 @@ namespace SetElite.Client.ParameterEntities
         }
 
 
+        /// <inheritdoc />
         /// <summary>
         /// Применить параметр.
         /// </summary>
@@ -71,18 +72,19 @@ namespace SetElite.Client.ParameterEntities
             }
 
             var wallpaperChanger = new WallpaperChanger();
-            var path = Filename == defaultFilename 
+            var path = Filename == DefaultFilename 
                 ? @"C:\Windows\Web\4K\Wallpaper\Windows\img0_3840x2160.jpg" 
-                : _wallpaperPath.AbsolutePath;
+                : WallpaperPath.AbsolutePath;
             wallpaperChanger.Set(path, Style);
         }
 
+        /// <inheritdoc />
         /// <summary>
         /// Сбросить значение параметра.
         /// </summary>
         public override void Reset()
         {
-            Filename = defaultFilename;
+            Filename = DefaultFilename;
             Style = WallpaperStyle.Stretched;
 
             Apply();
@@ -101,7 +103,7 @@ namespace SetElite.Client.ParameterEntities
 
             var filepath = openFileDialog.FileName;
             Filename = new FileInfo(filepath).Name;
-            File.Copy(filepath, _wallpaperPath.AbsolutePath);
+            File.Copy(filepath, WallpaperPath.AbsolutePath, true);
         }
     }
 }
