@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using MyToolkit.Command;
+using SetElite.Client.Watchers;
 
 namespace SetElite.Client
 {
@@ -23,6 +24,7 @@ namespace SetElite.Client
         public RelayCommand CloseCommand => new RelayCommand(() => Environment.Exit(0));
 
         private MainWindow _mainWindow;
+        private KeyboardWatcher _keyboardWatcher;
 
         /// <summary>
         /// Конструктор.
@@ -32,6 +34,8 @@ namespace SetElite.Client
             InitializeComponent();
             this.DataContext = this;
             SyncNow();
+
+            _keyboardWatcher = new KeyboardWatcher();
         }
 
         private void OpenSettings()
