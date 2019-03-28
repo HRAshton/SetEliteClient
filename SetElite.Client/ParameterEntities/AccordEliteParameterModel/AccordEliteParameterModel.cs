@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.Win32;
-using Newtonsoft.Json;
+﻿using Microsoft.Win32;
 using SetElite.Client.ParameterEntities.Virtual;
+using System;
 
 namespace SetElite.Client.ParameterEntities.AccordEliteParameterModel
 {
@@ -12,7 +11,7 @@ namespace SetElite.Client.ParameterEntities.AccordEliteParameterModel
         /// </summary>
         public AccordEliteParameterModel()
         {
-            IsEnabled = true;
+            IsEnabled = false;
         }
 
         /// <summary>
