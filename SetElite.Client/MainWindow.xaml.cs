@@ -26,6 +26,10 @@ namespace SetElite.Client
         public MainWindow()
         {
             _userdataDirectory = new Uri(UserdataDirectoryPath);
+            if (!new DirectoryInfo(_userdataDirectory.AbsolutePath).Exists)
+            {
+                Directory.CreateDirectory(_userdataDirectory.AbsolutePath);
+            }
             _settingsFilepath = new Uri(_userdataDirectory, "set.json");
 
             InitializeComponent();
@@ -40,7 +44,7 @@ namespace SetElite.Client
 
             SettingsStorage.ApplyAll();
 
-            this.DataContext = this;
+            DataContext = this;
         }
         
 
@@ -63,7 +67,7 @@ namespace SetElite.Client
         /// </summary>
         public void ShowHelp()
         {
-            System.Windows.MessageBox.Show("Проект SetElite обеспечивает синхронизацию настроек между компьютерами. Чтобы включить синхронизацию параметра, нужно его раскрыть и задать нужное значение.Например, чтобы переключение языка ввода на Alt + Shift, нужно раскрыть соответствующий пункт настроек и выбрать \"Alt+Shift\", после чего нажать \"Сохранить\".Настройки применятся на остальных компьютерах при входе под Вашей учетной записью.Чтобы принудительно применить новые настройки на компьютере, нажмите правую кнопку мыши на значке SetElite Client в трее и выберите пункт \"Синхронизировать\".",
+            MessageBox.Show("Проект SetElite обеспечивает синхронизацию настроек между компьютерами. Чтобы включить синхронизацию параметра, нужно его раскрыть и задать нужное значение.Например, чтобы переключение языка ввода на Alt + Shift, нужно раскрыть соответствующий пункт настроек и выбрать \"Alt+Shift\", после чего нажать \"Сохранить\".Настройки применятся на остальных компьютерах при входе под Вашей учетной записью.Чтобы принудительно применить новые настройки на компьютере, нажмите правую кнопку мыши на значке SetElite Client в трее и выберите пункт \"Синхронизировать\".",
                 "Справка",
                 MessageBoxButton.OK,
                 MessageBoxImage.Information);
@@ -72,8 +76,8 @@ namespace SetElite.Client
         private void SetWindowPosition()
         {
             var desktopWorkingArea = SystemParameters.WorkArea;
-            this.Left = desktopWorkingArea.Right - this.Width;
-            this.Top = desktopWorkingArea.Bottom - this.Height;
+            Left = desktopWorkingArea.Right - Width;
+            Top = desktopWorkingArea.Bottom - Height;
         }
 
         private void UpdateWindowTitle()
@@ -83,7 +87,7 @@ namespace SetElite.Client
                 var username = System.Security.Principal.WindowsIdentity.GetCurrent().Name;
                 var user = UserPrincipal.FindByIdentity(context, username);
 
-                this.Title = $"Настройки {user.Name} ({user.DisplayName})";
+                Title = $"Настройки {user?.Name} ({user?.DisplayName})";
             }
         }
 

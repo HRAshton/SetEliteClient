@@ -1,5 +1,7 @@
 ﻿using System;
 using SetElite.Client.ParameterEntities;
+using SetElite.Client.ParameterEntities.KeyboardLayoutHotkeyParameterModel;
+using SetElite.Client.ParameterEntities.WallpaperImageParameterModel;
 
 namespace SetElite.Client
 {

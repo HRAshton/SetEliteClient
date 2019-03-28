@@ -3,7 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:serviceClasses="clr-namespace:SetElite.Client.ServiceClasses"
+        xmlns:serviceClasses="clr-namespace:SetElite.Client.ParameterEntities.WallpaperImageParameterModel"
+        xmlns:client="clr-namespace:SetElite.Client"
         mc:Ignorable="d" Style="{StaticResource MainWindowStyle}"
         Title="Настройки tst24 (Test T. User)">
     <Window.Background>
@@ -106,7 +107,7 @@
 
                             <DockPanel>
                                 <Label Content="Стиль:" VerticalAlignment="Center" />
-                                <ComboBox ItemsSource="{Binding Source={serviceClasses:EnumBindingSource {x:Type serviceClasses:WallpaperStyle}}}"
+                                <ComboBox ItemsSource="{Binding Source={client:EnumBindingSource {x:Type serviceClasses:WallpaperStyle}}}"
                                   SelectedItem="{Binding Style}" 
                                   Margin="0,3,0,3" HorizontalContentAlignment="Stretch">
                                     <ComboBox.ItemTemplate>

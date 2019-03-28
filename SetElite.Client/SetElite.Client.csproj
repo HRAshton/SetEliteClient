@@ -101,16 +101,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="EnumBindingSourceExtension.cs" />
     <Compile Include="Converters\EnumDescriptionConverter.cs" />
     <Compile Include="Converters\ParameterNameStatusConverter.cs" />
     <Compile Include="Converters\EnumBooleanConverter.cs" />
     <Compile Include="NotifyIcon.xaml.cs">
       <DependentUpon>NotifyIcon.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ServiceClasses\KeyboardLayouts.cs" />
-    <Compile Include="ServiceClasses\EnumBindingSourceExtension.cs" />
-    <Compile Include="ServiceClasses\WallpaperStyle.cs" />
-    <Compile Include="ServiceClasses\WallpaperChanger.cs" />
+    <Compile Include="ParameterEntities\KeyboardLayoutHotkeyParameterModel\KeyboardLayouts.cs" />
+    <Compile Include="ParameterEntities\WallpaperImageParameterModel\WallpaperStyle.cs" />
+    <Compile Include="ParameterEntities\WallpaperImageParameterModel\WallpaperChanger.cs" />
     <Compile Include="SettingsStorage.cs" />
     <Compile Include="Watchers\KeyboardWatcher.cs" />
     <Page Include="MainWindow.xaml">
@@ -131,9 +131,9 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ParameterEntities\KeyboardLayoutHotkeyParameterModel.cs" />
+    <Compile Include="ParameterEntities\KeyboardLayoutHotkeyParameterModel\KeyboardLayoutHotkeyParameterModel.cs" />
     <Compile Include="ParameterEntities\Virtual\ParameterEntity.cs" />
-    <Compile Include="ParameterEntities\WallpaperImageParameterModel.cs" />
+    <Compile Include="ParameterEntities\WallpaperImageParameterModel\WallpaperImageParameterModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -186,5 +186,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

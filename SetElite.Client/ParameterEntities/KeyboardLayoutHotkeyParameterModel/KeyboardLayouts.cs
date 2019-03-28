@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace SetElite.Client.ServiceClasses
+namespace SetElite.Client.ParameterEntities.KeyboardLayoutHotkeyParameterModel
 {
     /// <summary>
     /// Горячие клавиши переключения раскладки.

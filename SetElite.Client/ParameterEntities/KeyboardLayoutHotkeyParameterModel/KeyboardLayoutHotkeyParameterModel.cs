@@ -1,11 +1,8 @@
-﻿using System;
-using Microsoft.Win32;
-using MyToolkit.Command;
+﻿using Microsoft.Win32;
 using Newtonsoft.Json;
 using SetElite.Client.ParameterEntities.Virtual;
-using SetElite.Client.ServiceClasses;
 
-namespace SetElite.Client.ParameterEntities
+namespace SetElite.Client.ParameterEntities.KeyboardLayoutHotkeyParameterModel
 {
     public sealed class KeyboardLayoutHotkeyParameterModel : VirtualParameterModel
     {

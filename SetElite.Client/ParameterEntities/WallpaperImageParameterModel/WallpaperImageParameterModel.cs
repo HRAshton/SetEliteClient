@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Drawing;
+using System.IO;
 using Microsoft.Win32;
 using MyToolkit.Command;
 using Newtonsoft.Json;
 using SetElite.Client.ParameterEntities.Virtual;
-using SetElite.Client.ServiceClasses;
-using System.IO;
-using System.Net;
-using MyToolkit.Utilities;
 
-namespace SetElite.Client.ParameterEntities
+namespace SetElite.Client.ParameterEntities.WallpaperImageParameterModel
 {
     /// <summary>
     /// Модель настроек фона рабочего стола.
