@@ -108,6 +108,7 @@
     <Compile Include="NotifyIcon.xaml.cs">
       <DependentUpon>NotifyIcon.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ParameterEntities\AccordEliteParameterModel\AccordEliteParameterModel.cs" />
     <Compile Include="ParameterEntities\KeyboardLayoutHotkeyParameterModel\KeyboardLayouts.cs" />
     <Compile Include="ParameterEntities\WallpaperImageParameterModel\WallpaperStyle.cs" />
     <Compile Include="ParameterEntities\WallpaperImageParameterModel\WallpaperChanger.cs" />

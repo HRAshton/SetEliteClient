@@ -1,5 +1,5 @@
 ﻿using System;
-using SetElite.Client.ParameterEntities;
+using SetElite.Client.ParameterEntities.AccordEliteParameterModel;
 using SetElite.Client.ParameterEntities.KeyboardLayoutHotkeyParameterModel;
 using SetElite.Client.ParameterEntities.WallpaperImageParameterModel;
 
@@ -15,26 +15,32 @@ namespace SetElite.Client
         /// </summary>
         public SettingsStorageModel()
         {
-            KeyboardLayout = new KeyboardLayoutHotkeyParameterModel();
-            WallpaperImage = new WallpaperImageParameterModel();
+            KeyboardLayoutHotkeyParameterModel = new KeyboardLayoutHotkeyParameterModel();
+            WallpaperImageParameterModel = new WallpaperImageParameterModel();
+            AccordEliteParameterModel = new AccordEliteParameterModel();
         }
 
         /// <summary>
         /// Настройки языка ввода.
         /// </summary>
-        public KeyboardLayoutHotkeyParameterModel KeyboardLayout { get; set; }
+        public KeyboardLayoutHotkeyParameterModel KeyboardLayoutHotkeyParameterModel { get; set; }
         /// <summary>
         /// Настройки фона рабочего стола.
         /// </summary>
-        public WallpaperImageParameterModel WallpaperImage { get; set; }
+        public WallpaperImageParameterModel WallpaperImageParameterModel { get; set; }
+        /// <summary>
+        /// Настройки синхронизации рабочего стола.
+        /// </summary>
+        public AccordEliteParameterModel AccordEliteParameterModel { get; set; }
 
         /// <summary>
         /// Применить все параметры.
         /// </summary>
         public void ApplyAll()
         {
-            KeyboardLayout.Apply();
-            WallpaperImage.Apply();
+            KeyboardLayoutHotkeyParameterModel.Apply();
+            WallpaperImageParameterModel.Apply();
+            AccordEliteParameterModel.Apply();
         }
     }
 }
