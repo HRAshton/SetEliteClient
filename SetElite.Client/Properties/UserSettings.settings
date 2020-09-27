@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)">
+  <Profiles />
+  <Settings>
+    <Setting Name="Wallpaper_Enabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Wallpaper_WallpaperStyle" Type="SetElite.Settings.Wallpaper.WallpaperStyle" Scope="User">
+      <Value Profile="(Default)">Stretched</Value>
+    </Setting>
+    <Setting Name="Keyboard_IsEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Keyboard_Mode" Type="SetElite.Settings.Keyboard.KeyboardLayout" Scope="User">
+      <Value Profile="(Default)">CtrlShift</Value>
+    </Setting>
+    <Setting Name="Hotkeys_IsEnabled" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
+
